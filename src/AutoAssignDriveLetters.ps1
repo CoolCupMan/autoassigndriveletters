@@ -345,7 +345,9 @@ function Show-VolumeTable {
         }
     }
     if (-not $rows) { Write-Host '  No volumes found.' -ForegroundColor Yellow; return }
-    $rows | Format-Table -AutoSize | Out-String -Width 200 | Write-Host
+    # Explicit columns: Format-Table shows only the first 10 properties otherwise.
+    $rows | Format-Table -Property '#', Letter, Bus, Disk, Part, Model, 'Serial / ID', Label, FS, Size, Note -AutoSize |
+        Out-String -Width 200 | Write-Host
 }
 
 # ---------------------------------------------------------------------------
